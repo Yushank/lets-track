@@ -31,7 +31,7 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                     password: postInputs.password,
                     redirect: false
                 });
-                router.push('/')
+                router.push('/home')
             } else {
                 console.error("Signup failed")
                 //can also return to client side user already exist when it does

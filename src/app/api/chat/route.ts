@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             }, {status: 401})
         }
 
-        const userId = parseInt(session.user.id, 10);
+        const userId = session.user.id;
         console.log("session userId: ", userId);
 
 
@@ -49,21 +49,27 @@ export async function POST(req: NextRequest) {
         const fatsMatch = response?.match(/fats\s*[:\-]?\s*(\d+(\.\d+)?)/i);
         const fats = fatsMatch ? parseFloat(fatsMatch[1]) : null;
 
+        if(calories === null || protein === null || carbs === null || fats === null){
+            return NextResponse.json({
+                error: "Could not extract all required nutrition values from the AI response.",
+                debug: { calories, protein, carbs, fats }
+            }, {status: 400})
+        }
 
-        // const meal = await prisma.meal.create({
-        //     data: {
-        //         calories: calories,
-        //         protein: protein,
-        //         carbs: carbs,
-        //         fats: fats,
-        //         userId: userId
-        //     }
-        // });
+        const meal = await prisma.meal.create({
+            data: {
+                calories: calories,
+                protein: protein,
+                carbs: carbs,
+                fats: fats,
+                userId: userId
+            }
+        });
 
         return NextResponse.json({
             msg: "chat sent successfully",
             reply: response,
-            // meal
+            meal
         })
     }
     catch (error) {
