@@ -1,0 +1,74 @@
+import { authOptions } from "@/src/lib/auth";
+import { getChatResponse } from "@/src/utils/openai";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import {prisma} from "@/src/db"
+
+
+
+export async function POST(req: NextRequest) {
+    try {
+        //USER ID FETCH
+        const session = await getServerSession(authOptions);
+
+        if(!session?.user?.id){
+            return NextResponse.json({
+                msg: "Unauthorised - No valid session user"
+            }, {status: 401})
+        }
+
+        const userId = parseInt(session.user.id, 10);
+        console.log("session userId: ", userId);
+
+
+        //MESSAGE SENDING TO AI AND RECEIVING
+        const text = (await req.text()).trim();
+
+        if (!text.trim()) {
+            return NextResponse.json({
+                error: "Please enter some food items to calculate calories"
+            }, { status: 400 });
+        }
+
+        const response = await getChatResponse(text);
+
+        // CALORIES
+        const calorieMatch = response?.match(/\d+\s*calories/i) || response?.match(/\d+/);
+        //use regex to find calorie number in either "350 calories" or "350" format
+        const calories = calorieMatch ? parseInt(calorieMatch[0]) : null;
+
+        // PROTEIN
+        const proteinMatch = response?.match(/protein\s*[:\-]?\s*(\d+(\.\d+)?)/i)
+        const protein = proteinMatch ? parseFloat(proteinMatch[1]) : null;
+
+        // CARBS
+        const carbsMatch = response?.match(/carbs\s*[:\-]?\s*(\d+(\.\d+)?)/i);
+        const carbs = carbsMatch ? parseFloat(carbsMatch[1]) : null;
+
+        // FATS
+        const fatsMatch = response?.match(/fats\s*[:\-]?\s*(\d+(\.\d+)?)/i);
+        const fats = fatsMatch ? parseFloat(fatsMatch[1]) : null;
+
+
+        // const meal = await prisma.meal.create({
+        //     data: {
+        //         calories: calories,
+        //         protein: protein,
+        //         carbs: carbs,
+        //         fats: fats,
+        //         userId: userId
+        //     }
+        // });
+
+        return NextResponse.json({
+            msg: "chat sent successfully",
+            reply: response,
+            // meal
+        })
+    }
+    catch (error) {
+        return NextResponse.json({
+            error: `error while sending chat: ${error instanceof Error ? error.message : String(error)}`
+        }, {status: 500});
+    }
+}
