@@ -2,7 +2,7 @@ import { authOptions } from "@/src/lib/auth";
 import { getChatResponse } from "@/src/utils/openai";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import {prisma} from "@/src/db"
+import { prisma } from "@/src/db"
 
 
 
@@ -11,10 +11,10 @@ export async function POST(req: NextRequest) {
         //USER ID FETCH
         const session = await getServerSession(authOptions);
 
-        if(!session?.user?.id){
+        if (!session?.user?.id) {
             return NextResponse.json({
                 msg: "Unauthorised - No valid session user"
-            }, {status: 401})
+            }, { status: 401 })
         }
 
         const userId = session.user.id;
@@ -49,11 +49,11 @@ export async function POST(req: NextRequest) {
         const fatsMatch = response?.match(/fats\s*[:\-]?\s*(\d+(\.\d+)?)/i);
         const fats = fatsMatch ? parseFloat(fatsMatch[1]) : null;
 
-        if(calories === null || protein === null || carbs === null || fats === null){
+        if (calories === null || protein === null || carbs === null || fats === null) {
             return NextResponse.json({
                 error: "Could not extract all required nutrition values from the AI response.",
                 debug: { calories, protein, carbs, fats }
-            }, {status: 400})
+            }, { status: 400 })
         }
 
         const meal = await prisma.meal.create({
@@ -75,6 +75,40 @@ export async function POST(req: NextRequest) {
     catch (error) {
         return NextResponse.json({
             error: `error while sending chat: ${error instanceof Error ? error.message : String(error)}`
-        }, {status: 500});
+        }, { status: 500 });
     }
 }
+
+
+// export async function GET(req: NextRequest) {
+//     const session = await getServerSession(authOptions);
+
+//     if(!session?.user?.id){
+//         return NextResponse.json({
+//             msg: "Unauthorised - No valid session user"
+//         }, {status: 401})
+//     };
+
+//     const userId = session.user.id;
+
+//     try{
+//         const url = new URL(req.url);
+//         const date = url.pathname.split('/').pop() || '';
+//         console.log("extracted date from url: ", date);
+
+//         const meals = await prisma.meal.findMany({
+//             where:{
+//                 userId: userId,
+//             }
+//         });
+
+//         return NextResponse.json({
+//             meals
+//         });
+//     }
+//     catch(error){
+//         return NextResponse.json({
+//             msg: `error fetching meals: ${error}`
+//         })
+//     }
+// }
