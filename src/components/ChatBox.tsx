@@ -9,14 +9,18 @@ import { useMeals } from "../hooks";
 export const ChatBox = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
-    const date = "2025-06-13"
-    const {meals, isLoading} = useMeals({date});
+    const date = "2025-06-14"
+    const { meals, isLoading, calories, protein, carbs, fats } = useMeals({ date });
     console.log("meals from hook: ", meals);
+    console.log("calories extracted from meals array: ", calories);
+    console.log("protein extracted from meals array: ", protein);
+    console.log("carbs extracted from meals array: ", carbs);
+    console.log("fats extracted from meals array: ", fats);
 
-    const [calories, setCalories] = useState("");
-    const [protein, setProtein] = useState("");
-    const [carbs, setCarbs] = useState("");
-    const [fats, setFats] = useState("");
+    // const [calories, setCalories] = useState("");
+    // const [protein, setProtein] = useState("");
+    // const [carbs, setCarbs] = useState("");
+    // const [fats, setFats] = useState("");
 
     async function sendInput() {
         try {
@@ -27,10 +31,10 @@ export const ChatBox = () => {
             console.log("out response", response)
             const reply = response.data.reply;
             setOutput(reply);
-            setCalories(response.data.meal.calories);
-            setProtein(response.data.meal.protein);
-            setCarbs(response.data.meal.carbs);
-            setFats(response.data.meal.fats);
+            // setCalories(response.data.meal.calories);
+            // setProtein(response.data.meal.protein);
+            // setCarbs(response.data.meal.carbs);
+            // setFats(response.data.meal.fats);
             setInput("");
 
         }
@@ -50,12 +54,12 @@ export const ChatBox = () => {
                         <input type="text" onChange={(e) => setInput(e.target.value)} placeholder="Write about your meal"></input>
                         <button onClick={sendInput}>Send</button>
                     </div>
-                    {/* <div className="pt-8">
+                    <div className="pt-8">
                         <p>Total calories: {calories}</p>
                         <p>Total protein: {protein}</p>
                         <p>Total carbs: {carbs}</p>
                         <p>Total fats: {fats}</p>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
