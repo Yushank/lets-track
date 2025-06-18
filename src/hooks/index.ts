@@ -19,12 +19,14 @@ export const useMeals = ({ date }: { date: string }) => {
     const [carbs, setCarbs] = useState([])
     const [fats, setFats] = useState([])
 
-
-    // useEffect(() => {
-    //     setIsLoading(true);
+    console.log("date in hook: ", date)
 
     const fetchMeal = useCallback(async () => {
         try {
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                throw new Error("Invalid date format");
+            }
+
             const response = await axios.get(`/api/chat/${date}`);
             console.log("response: ", response)
             setMeals(response.data);
@@ -44,13 +46,11 @@ export const useMeals = ({ date }: { date: string }) => {
         }
     }, [date])
 
+
     useEffect(() => {
         fetchMeal();
     }, [fetchMeal])
 
-    // fetchMeal();
-
-    // }, [calories]);
 
     return {
         meals,

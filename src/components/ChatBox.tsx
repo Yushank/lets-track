@@ -3,13 +3,23 @@
 import axios from "axios";
 import { useState } from "react"
 import { useMeals } from "../hooks";
+import { useParams } from "next/navigation";
 
 
 
 export const ChatBox = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
-    const date = "2025-06-14"
+    // const url = window.location.pathname;
+    // const segments = url.split('/');
+    // const lastSegment = segments.pop() || segments.pop() as string;
+    // console.log("Last segmnet: ", lastSegment)
+    // const date = lastSegment
+
+    const params = useParams();
+    const datePath = params.date as string[];
+    const date = datePath[0];
+    // fetching url /home/date, then from there date = datePath[0] to fetch date and send to useMeals hook
     const { meals, isLoading, calories, protein, carbs, fats, refetchMeal } = useMeals({ date });
     console.log("meals from hook: ", meals);
     console.log("calories extracted from meals array: ", calories);
