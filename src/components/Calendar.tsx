@@ -19,20 +19,28 @@ export default function CalendarApp() {
 
   const router = useRouter();
 
-  const formattedDate = date instanceof Date ? format(date, 'yyyy-MM-dd') : "No date selected";
-  console.log("formatted date: ", formattedDate)
+  // const formattedDate = date instanceof Date ? format(date, 'yyyy-MM-dd') : "No date selected";
+  // console.log("formatted date: ", formattedDate)
   
-  useEffect(() => {
-    // setSelectedDate(formattedDate);
+  // useEffect(() => {
+  //   // setSelectedDate(formattedDate);
 
-    if(isFirstRender.current){
-      isFirstRender.current = false;
-      return
+  //   if(isFirstRender.current){
+  //     isFirstRender.current = false;
+  //     return
+  //   }
+
+  //   // redirect(`/home/${formattedDate}`)
+  //   router.push(`/home/${formattedDate}`)
+  // }, [date])
+
+  const handleDateChange = (newDate: Value) => {
+    setDate(newDate);
+
+    if(newDate instanceof Date){
+      router.push(`/home/${format(newDate, 'yyyy-MM-dd')}`);
     }
-
-    // redirect(`/home/${formattedDate}`)
-    router.push(`/home/${formattedDate}`)
-  }, [date])
+  }
 
   return (
     <div className="min-h-screen flex justify-center items-start p-5 bg-gray-50">
@@ -45,7 +53,7 @@ export default function CalendarApp() {
         {/* Calendar positioned left */}
         <div className="flex justify-center">
           <Calendar
-            onChange={setDate}
+            onChange={handleDateChange} //only triggers on user interaction
             value={date}
             className="rounded-lg border border-gray-200 shadow-md p-2 bg-white"
           />
