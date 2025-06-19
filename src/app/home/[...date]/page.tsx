@@ -1,4 +1,5 @@
 import { ChatBox } from "@/src/components/ChatBox";
+import { Signout } from "@/src/components/Signout";
 import { authOptions } from "@/src/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -20,6 +21,9 @@ export default async function Home() {
                         <h2>Calendar</h2>
                     </a>
                 </Link>
+            </div>
+            <div>
+                <Signout />
             </div>
             <div>
                 <ChatBox />

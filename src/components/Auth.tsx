@@ -1,11 +1,12 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { signupInput } from "../schemas/userSchema";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 
 
@@ -19,6 +20,13 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
         password: ""
     });
 
+    const [currentDate, setCurrentDate] = useState('');
+
+    useEffect(() => {
+        const now = new Date();
+        setCurrentDate(now.toLocaleString());
+    }, []);
+
     async function sendSignupRequest() {
         try {
             const response = await axios.post("/api/user/signup",
@@ -31,7 +39,7 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                     password: postInputs.password,
                     redirect: false
                 });
-                router.push('/home')
+                router.push(`/home/${format(currentDate, "yyyy-MM-dd")}`);
             } else {
                 console.error("Signup failed")
                 //can also return to client side user already exist when it does
@@ -57,7 +65,7 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                 return
             }
 
-            router.push('/home');
+            router.push(`/home/${format(currentDate, "yyyy-MM-dd")}`);
         }
         catch (error) {
             alert("Error while signing in");
