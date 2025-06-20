@@ -11,10 +11,13 @@ export const ChatBox = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const params = useParams();
-    const datePath = params.date as string[];
-    const date = datePath[0];
+    // const datePath = params.date as string[];
+    // const date = datePath[0];
     // fetching url /home/date, then from there date = datePath[0] to fetch date and send to useMeals hook
-    
+    const date = params.date as string;
+    //when /home/[date] use params.date as string directly to fech date, when [..date] then use before method
+
+
     const { meals, isLoading, calories, protein, carbs, fats, refetchMeal } = useMeals({ date });
     console.log("meals from hook: ", meals);
     console.log("calories extracted from meals array: ", calories);
