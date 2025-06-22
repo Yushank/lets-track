@@ -43,7 +43,7 @@ export const ChatBox = () => {
         }
     }
 
-    async function sendOutput() {
+    async function sendChat() {
         try {
             const res = await axios.post("/api/chat/input-output", {
                 output,
@@ -59,7 +59,7 @@ export const ChatBox = () => {
 
     useEffect(() => {
         if (output !== "") {
-            sendOutput();
+            sendChat();
         }
     }, [output])
 
