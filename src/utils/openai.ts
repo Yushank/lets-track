@@ -36,7 +36,7 @@ export async function getChatResponse(foodItems: string): Promise<string> {
         }) as unknown as openRouterChatCompletion;
         //as unknown first reset the type, then as openRouterChatCompletion applies our custom type
 
-        console.log("Full OpenRouter response:", JSON.stringify(response, null, 2));
+        // console.log("Full OpenRouter response:", JSON.stringify(response, null, 2));
 
         const message = response.choices[0]?.message;
         const responseText = message?.content || message?.reasoning || "Cannot Calculate";

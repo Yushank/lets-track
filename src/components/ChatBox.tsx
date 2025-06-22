@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useMeals } from "../hooks";
 import { useParams } from "next/navigation";
 
@@ -29,13 +29,12 @@ export const ChatBox = () => {
     async function sendInput() {
         try {
             const response = await axios.post("/api/chat",
-                input
+                input,
             );
 
             console.log("out response", response)
             const reply = response.data.reply;
             setOutput(reply);
-            setInput("");
 
             refetchMeal(); //callback to run fetchMeal function in hook
         }
@@ -43,6 +42,26 @@ export const ChatBox = () => {
             console.log(error)
         }
     }
+
+    async function sendOutput() {
+        try {
+            const res = await axios.post("/api/chat/input-output", {
+                output,
+                input
+            });
+
+            setInput("");
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if (output !== "") {
+            sendOutput();
+        }
+    }, [output])
 
     return (
         <div className="h-screen flex justify-center flex-col">

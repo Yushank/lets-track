@@ -28,6 +28,7 @@ model User {
 
   meals     Meal[]
   exercises Exercise[]
+  Chat      Chat[]
 }
 
 model Meal {
@@ -39,6 +40,16 @@ model Meal {
   protein  Float
   carbs    Float
   fats     Float
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Chat {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  input     String
+  output    String
 
   userId String
   user   User   @relation(fields: [userId], references: [id])

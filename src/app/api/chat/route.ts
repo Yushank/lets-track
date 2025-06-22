@@ -66,11 +66,20 @@ export async function POST(req: NextRequest) {
             }
         });
 
+        // to save chat input in database
+        // const chat = await prisma.chat.create({
+        //     data: {
+        //         input: text,
+        //         output: "",
+        //         userId: userId
+        //     }
+        // })
+
         return NextResponse.json({
             msg: "chat sent successfully",
             reply: response,
             meal
-        })
+        });
     }
     catch (error) {
         return NextResponse.json({
