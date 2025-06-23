@@ -1,16 +1,18 @@
 "use client"
 
-import { AlignJustify, LucideIcon, User, CalendarDays, Home, Power } from "lucide-react"
+import { AlignJustify, LucideIcon, User, CalendarDays, Home, Power, Sun, Moon } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleCollapse } from "../features/sidebar/sidebarSlice"
 import { RootState } from "../app/store"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { signOut } from "next-auth/react"
+import { toggleDarkmMode } from "../features/darkmode/darkmodeSlice"
 
 export const Sidebar = () => {
 
     const isCollapsed = useSelector((state: RootState) => state.sidebar.isCollapsed);
+    const isDarkMode = useSelector((state: RootState) => state.darkMode.isDarkMode);
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -40,9 +42,16 @@ export const Sidebar = () => {
                 </div>
 
                 <div className="p-4">
-                    <button onClick={() => { signoutFunction() }}>
-                        <Power className="h-6 w-6 hover:text-red-500 text-red-600" />
-                    </button>
+                    <div className="py-4">
+                        <button onClick={() => {dispatch(toggleDarkmMode())}}>
+                            {isDarkMode ? <Sun className="text-white"/> : <Moon />}
+                        </button>
+                    </div>
+                    <div className="py-4">
+                        <button onClick={() => { signoutFunction() }}>
+                            <Power className="h-6 w-6 hover:text-red-500 text-red-600" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
