@@ -8,12 +8,12 @@ import { redirect } from "next/navigation";
 
 
 interface Props {
-    params: {date: string};
-    searchParams: {source?: string};
+    params: { date: string };
+    searchParams: { source?: string };
 }
 
 
-export default async function Home({params, searchParams}: Props) {
+export default async function Home({ params, searchParams }: Props) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
         redirect("/signin");
@@ -23,7 +23,7 @@ export default async function Home({params, searchParams}: Props) {
     const date = now.toLocaleString();
     const today = format(date, "yyyy-MM-dd");
 
-    if(!searchParams.source && params.date !== today){
+    if (!searchParams.source && params.date !== today) {
         redirect(`/home/${today}`)
     }
 
@@ -33,19 +33,7 @@ export default async function Home({params, searchParams}: Props) {
 
     return (
         <div>
-            <div>
-                <Link href={"/calendar"} legacyBehavior>
-                    <a className="block">
-                        <h2>Calendar</h2>
-                    </a>
-                </Link>
-            </div>
-            <div>
-                <Signout />
-            </div>
-            <div>
-                <ChatBox />
-            </div>
+            <ChatBox />
         </div>
     )
 }
