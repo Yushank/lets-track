@@ -2,8 +2,10 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { useMeals } from "../hooks";
+import { useChat, useMeals } from "../hooks";
 import { useParams } from "next/navigation";
+import { format } from "date-fns";
+import { Bot, CircleUser } from "lucide-react";
 
 
 
@@ -24,6 +26,8 @@ export const ChatBox = () => {
     console.log("protein extracted from meals array: ", protein);
     console.log("carbs extracted from meals array: ", carbs);
     console.log("fats extracted from meals array: ", fats);
+    const { chats, isChatLoading, refetchChat } = useChat({ date });
+    console.log("chats from useChat:", chats)
 
 
     async function sendInput() {
@@ -51,6 +55,7 @@ export const ChatBox = () => {
             });
 
             setInput("");
+            refetchChat(); //callback to run fetchChat function in hook
         }
         catch (error) {
             console.log(error)
@@ -67,6 +72,31 @@ export const ChatBox = () => {
         <div className="h-screen flex justify-center flex-col">
             <div className="flex justify-center">
                 <div className="w-full max-w-xl p-6 rounded-lg shadow-md">
+                    <div className="border border-gray rounded-lg p-20">
+                        {isChatLoading ? (
+                            <p>Loading chats...</p>
+                        ) : chats.length > 0 ? (
+                            chats.map((chat) => (
+                                <div key={chat.id} className="mb-4">
+                                    <div className="flex items-start gap-2 mb-1">
+                                        <CircleUser className="mt-0.5 h-5 w-5 text-gray-700" />
+                                        <p className="font-semibold text-gray-900">{chat.input}</p>
+                                    </div>
+
+                                    <div className="flex items-start gap-2 mb-1">
+                                        <Bot className="mt-0.5 h-5 w-5 text-gray-700" />
+                                        <p className="text-gray-600 flex gap-3">{chat.output}</p>
+                                    </div>
+
+                                    <p className="text-xs text-gray-500 font-light">
+                                        {format(chat.createdAt, "yyyy-MM-dd hh:mm a")}
+                                        </p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No chats for this date</p>
+                        )}
+                    </div>
                     <div className="border border-gray-500 rounded-lg p-8">
                         <p>{output}</p>
                     </div>
