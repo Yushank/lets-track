@@ -78,19 +78,7 @@ export const ChatBox = () => {
                         ) : chats.length > 0 ? (
                             chats.map((chat) => (
                                 <div key={chat.id} className="mb-4">
-                                    <div className="flex items-start gap-2 mb-1">
-                                        <CircleUser className="mt-0.5 h-5 w-5 text-gray-700" />
-                                        <p className="font-semibold text-gray-900">{chat.input}</p>
-                                    </div>
-
-                                    <div className="flex items-start gap-2 mb-1">
-                                        <Bot className="mt-0.5 h-5 w-5 text-gray-700" />
-                                        <p className="text-gray-600 flex gap-3">{chat.output}</p>
-                                    </div>
-
-                                    <p className="text-xs text-gray-500 font-light">
-                                        {format(chat.createdAt, "yyyy-MM-dd hh:mm a")}
-                                        </p>
+                                    <Chats chat={chat}/>
                                 </div>
                             ))
                         ) : (
@@ -119,6 +107,37 @@ export const ChatBox = () => {
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+interface chatsType {
+    id: string,
+    createdAt: string,
+    input: string,
+    output: string,
+    userId: string
+}
+
+interface chat{
+    chat: chatsType
+}
+function Chats({chat}: chat) {
+    return (
+        <div key={chat.id} className="mb-4">
+            <div className="flex items-start gap-2 mb-1">
+                <CircleUser className="mt-0.5 h-5 w-5 text-gray-700" />
+                <p className="font-semibold text-gray-900">{chat.input}</p>
+            </div>
+
+            <div className="flex items-start gap-2 mb-1">
+                <Bot className="mt-0.5 h-5 w-5 text-gray-700" />
+                <p className="text-gray-600 flex gap-3">{chat.output}</p>
+            </div>
+
+            <p className="text-xs text-gray-500 font-light">
+                {format(chat.createdAt, "yyyy-MM-dd hh:mm a")}
+            </p>
         </div>
     )
 }
