@@ -32,7 +32,7 @@ export async function getChatResponse(foodItems: string): Promise<string> {
                 }
             ],
             temperature: 0.3,
-            max_completion_tokens: 200,
+            max_tokens: 200,
         }) as unknown as openRouterChatCompletion;
         //as unknown first reset the type, then as openRouterChatCompletion applies our custom type
 

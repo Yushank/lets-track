@@ -20,12 +20,7 @@ export const ChatBox = () => {
     //when /home/[date] use params.date as string directly to fech date, when [..date] then use before method
 
 
-    const { meals, isLoading, calories, protein, carbs, fats, refetchMeal } = useMeals({ date });
-    console.log("meals from hook: ", meals);
-    console.log("calories extracted from meals array: ", calories);
-    console.log("protein extracted from meals array: ", protein);
-    console.log("carbs extracted from meals array: ", carbs);
-    console.log("fats extracted from meals array: ", fats);
+    const { refetchMeal } = useMeals({ date }); //refetchmeal from hook is called here so we can make mount when sendinput function is called from here
     const { chats, isChatLoading, refetchChat } = useChat({ date });
     console.log("chats from useChat:", chats)
 
@@ -69,41 +64,42 @@ export const ChatBox = () => {
     }, [output])
 
     return (
-        <div className="h-screen flex justify-center flex-col">
+        <div className="h-full flex justify-center flex-col">
             <div className="flex justify-center">
-                <div className="w-full max-w-xl p-6 rounded-lg shadow-md">
-                    <div className="border border-gray rounded-lg p-20">
+                <div className="w-full max-w-xl p-6 rounded-lg shadow-md border border-gray-400">
+
+                    {/* CHAT HISTORY */}
+                    <div className="border border-gray rounded-lg p-20 h-64 overflow-y-auto">
                         {isChatLoading ? (
-                            <p>Loading chats...</p>
+                            <p className="text-center">Loading chats...</p>
                         ) : chats.length > 0 ? (
                             chats.map((chat) => (
                                 <div key={chat.id} className="mb-4">
-                                    <Chats chat={chat}/>
+                                    <Chats chat={chat} />
                                 </div>
                             ))
                         ) : (
-                            <p>No chats for this date</p>
+                            <p className="text-center text-gray-500">No chats for this date</p>
                         )}
                     </div>
+
+                    {/* CURRENT OUTPUT */}
                     <div className="border border-gray-500 rounded-lg p-8">
-                        <p>{output}</p>
+                        <Bot className="h-5 w-5 mt-0.5 text-green-500" />
+                        <p className="text-gray-700 whitespace-pre-line">{output}</p>
                     </div>
-                    <div className="pt-6">
-                        <input className="m-2 p-2 border border-gray-500 rounded-lg"
+
+                    {/* INPUT AREA */}
+                    <div className="flex max-w-xl mx-auto pt-6 pb-4 gap-2">
+                        <input className="flex-1 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             type="text"
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Write about your meal">
                         </input>
                         <button
-                            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg"
+                            className="bg-transparent bg-blue-500 hover:bg-blue-600 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg"
                             onClick={sendInput}
                         >Send</button>
-                    </div>
-                    <div className="pt-8">
-                        <p>Total calories: {calories}</p>
-                        <p>Total protein: {protein}</p>
-                        <p>Total carbs: {carbs}</p>
-                        <p>Total fats: {fats}</p>
                     </div>
                 </div>
             </div>
@@ -119,19 +115,19 @@ interface chatsType {
     userId: string
 }
 
-interface chat{
+interface chat {
     chat: chatsType
 }
-function Chats({chat}: chat) {
+function Chats({ chat }: chat) {
     return (
         <div key={chat.id} className="mb-4">
             <div className="flex items-start gap-2 mb-1">
-                <CircleUser className="mt-0.5 h-5 w-5 text-gray-700" />
+                <CircleUser className="mt-0.5 h-5 w-5 text-blue-500" />
                 <p className="font-semibold text-gray-900">{chat.input}</p>
             </div>
 
             <div className="flex items-start gap-2 mb-1">
-                <Bot className="mt-0.5 h-5 w-5 text-gray-700" />
+                <Bot className="mt-0.5 h-5 w-5 text-green-500" />
                 <p className="text-gray-600 flex gap-3">{chat.output}</p>
             </div>
 

@@ -1,5 +1,6 @@
 import { ChatBox } from "@/src/components/ChatBox";
 import { Signout } from "@/src/components/Signout";
+import { TotalBar } from "@/src/components/TotalBar";
 import { authOptions } from "@/src/lib/auth";
 import { format } from "date-fns";
 import { getServerSession } from "next-auth";
@@ -32,8 +33,13 @@ export default async function Home({ params, searchParams }: Props) {
 
 
     return (
-        <div>
-            <ChatBox />
+        <div className="flex flex-col h-screen overflow-hidden">
+            <header className="shrink-0">
+                <TotalBar />
+            </header>
+            <main className="flex-1 overflow-hidden">
+                <ChatBox />
+            </main>
         </div>
     )
 }
