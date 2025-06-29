@@ -1,6 +1,6 @@
 import { signupInput } from "@/src/schemas/userSchema";
 import { NextRequest, NextResponse } from "next/server";
-import {prisma} from '@/src/db'
+import { prisma } from '@/src/db'
 import bcrypt from 'bcrypt'
 
 export async function POST(req: NextRequest) {
@@ -47,9 +47,11 @@ export async function POST(req: NextRequest) {
             username: body.email
         })
     }
-    catch(error){
+    catch (error) {
         return NextResponse.json({
             message: `Error while Signing up: ${error}`
         })
     }
 }
+
+

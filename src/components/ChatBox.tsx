@@ -71,7 +71,7 @@ export const ChatBox = () => {
                     {/* CHAT HISTORY */}
                     <div className="border border-gray rounded-lg p-20 h-64 overflow-y-auto">
                         {isChatLoading ? (
-                            <p className="text-center">Loading chats...</p>
+                            <p className="text-center dark:text-white">Loading chats...</p>
                         ) : chats.length > 0 ? (
                             chats.map((chat) => (
                                 <div key={chat.id} className="mb-4">
@@ -79,14 +79,14 @@ export const ChatBox = () => {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-center text-gray-500">No chats for this date</p>
+                            <p className="text-center text-gray-500 dark:text-white">No chats for this date</p>
                         )}
                     </div>
 
                     {/* CURRENT OUTPUT */}
-                    <div className="border border-gray-500 rounded-lg p-8">
+                    <div className="border border-gray-500 rounded-lg p-8 dark:border-gray-200">
                         <Bot className="h-5 w-5 mt-0.5 text-green-500" />
-                        <p className="text-gray-700 whitespace-pre-line">{output}</p>
+                        <p className="text-gray-700 dark:text-white whitespace-pre-line">{output}</p>
                     </div>
 
                     {/* INPUT AREA */}
@@ -97,7 +97,7 @@ export const ChatBox = () => {
                             placeholder="Write about your meal">
                         </input>
                         <button
-                            className="bg-transparent bg-blue-500 hover:bg-blue-600 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg"
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-lg"
                             onClick={sendInput}
                         >Send</button>
                     </div>
@@ -123,15 +123,15 @@ function Chats({ chat }: chat) {
         <div key={chat.id} className="mb-4">
             <div className="flex items-start gap-2 mb-1">
                 <CircleUser className="mt-0.5 h-5 w-5 text-blue-500" />
-                <p className="font-semibold text-gray-900">{chat.input}</p>
+                <p className="font-semibold text-gray-900 dark:text-white">{chat.input}</p>
             </div>
 
-            <div className="flex items-start gap-2 mb-1">
+            <div className="flex items-start gap-2 mb-1 dark:text-white">
                 <Bot className="mt-0.5 h-5 w-5 text-green-500" />
                 <p className="text-gray-600 flex gap-3">{chat.output}</p>
             </div>
 
-            <p className="text-xs text-gray-500 font-light">
+            <p className="text-xs text-gray-500 font-light dark:text-white">
                 {format(chat.createdAt, "yyyy-MM-dd hh:mm a")}
             </p>
         </div>

@@ -23,7 +23,7 @@ export const Sidebar = () => {
     }
 
     const sidebarClassname = `fixed top-0 left-0 flex flex-col h-[100%] justify-between shadow-xl
-    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white ${isCollapsed ? "w-20" : "w-64"}`
+    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white overflow-hidden ${isCollapsed ? "w-20" : "w-64"}`
 
     return (
         <div className={sidebarClassname}>
@@ -35,16 +35,16 @@ export const Sidebar = () => {
                         </button>
                     </div>
                     <nav className="z-10 w-full">
-                        <SidebarLink icon={User} label="Profile" href="" />
+                        <SidebarLink icon={User} label="Profile" href="/profile" />
                         <SidebarLink icon={CalendarDays} label="Calendar" href="/calendar" />
                         <SidebarLink icon={Home} label="Home" href="/home" />
                     </nav>
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 ml-2">
                     <div className="py-4">
                         <button onClick={() => {dispatch(toggleDarkmMode())}}>
-                            {isDarkMode ? <Sun className="text-white"/> : <Moon />}
+                            {isDarkMode ? <Sun className="text-white h-6 w-6"/> : <Moon className="h-6 w-6"/>}
                         </button>
                     </div>
                     <div className="py-4">

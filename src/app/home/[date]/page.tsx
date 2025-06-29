@@ -1,10 +1,8 @@
 import { ChatBox } from "@/src/components/ChatBox";
-import { Signout } from "@/src/components/Signout";
 import { TotalBar } from "@/src/components/TotalBar";
 import { authOptions } from "@/src/lib/auth";
 import { format } from "date-fns";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 

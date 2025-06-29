@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NextResponse } from "next/server";
 import { useCallback, useEffect, useState } from "react"
 
 
@@ -18,6 +19,16 @@ interface Chat {
     userId: string
 }
 
+interface Profile {
+    id: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    weight: number,
+    height: number,
+    age: number,
+    gender: string
+}
 
 export const useMeals = ({ date }: { date: string }) => {
     const [meals, setMeals] = useState<Meal[]>([]);
@@ -116,4 +127,31 @@ export const useChat = ({ date }: { date: string }) => {
         isChatLoading,
         refetchChat: fetchChat
     }
+}
+
+
+export const useProfile = () => {
+    const [profile, setProfile] = useState<Profile | undefined>();
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get("/api/user")
+
+                console.log("Response from useProfile hook:", response);
+
+                setProfile(response.data.profile);
+            }
+            catch (error) {
+                console.error("Error fetching user profile:", error);
+            }
+        };
+
+        fetchProfile();
+    }, [])
+
+
+    return {
+        profile
+    };
 }

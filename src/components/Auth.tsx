@@ -39,7 +39,7 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                     password: postInputs.password,
                     redirect: false
                 });
-                router.push(`/home/${format(currentDate, "yyyy-MM-dd")}`);
+                router.push("/user-info");
             } else {
                 console.error("Signup failed")
                 //can also return to client side user already exist when it does
