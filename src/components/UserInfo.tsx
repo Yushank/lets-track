@@ -18,7 +18,7 @@ type userInfoFormInput = {
 export function UserInfoComp() {
     const router = useRouter()
 
-    const [infoInputs, setUserInputs] = useState<userInfoFormInput>({
+    const [infoInputs, setInfoInputs] = useState<userInfoFormInput>({
         height: "",
         weight: "",
         age: "",
@@ -72,7 +72,7 @@ export function UserInfoComp() {
                         placeholder="eg: 50"
                         icon={Weight}
                         onChange={(e) => {
-                            setUserInputs({
+                            setInfoInputs({
                                 ...infoInputs,
                                 weight: e.target.value
                             })
@@ -84,7 +84,7 @@ export function UserInfoComp() {
                         placeholder="eg: 160"
                         icon={Ruler}
                         onChange={(e) => {
-                            setUserInputs({
+                            setInfoInputs({
                                 ...infoInputs,
                                 height: e.target.value
                             })
@@ -96,7 +96,7 @@ export function UserInfoComp() {
                         placeholder="eg: 24"
                         icon={Hourglass}
                         onChange={(e) => {
-                            setUserInputs({
+                            setInfoInputs({
                                 ...infoInputs,
                                 age: e.target.value
                             })
@@ -111,7 +111,7 @@ export function UserInfoComp() {
                             const value = e.target.value;
                             const capitalized = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
                             //this make first letter of sentence upper case
-                            setUserInputs({
+                            setInfoInputs({
                                 ...infoInputs,
                                 gender: capitalized
                             })

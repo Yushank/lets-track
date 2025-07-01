@@ -1,6 +1,7 @@
 import { prisma } from "@/src/db";
 import { authOptions } from "@/src/lib/auth";
 import { userInfoInput } from "@/src/schemas/userInfoSchema";
+import { userTotalInfoPatchInput } from "@/src/schemas/userTotalInfoSchema";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,7 +20,7 @@ export async function PATCH(req: NextRequest) {
 
     const body = await req.json()
     try {
-        const parsePayload = userInfoInput.safeParse(body)
+        const parsePayload = userTotalInfoPatchInput.safeParse(body)
 
         if (!parsePayload.success) {
             return NextResponse.json({
@@ -36,6 +37,8 @@ export async function PATCH(req: NextRequest) {
                 id: userId
             },
             data: {
+                firstName: data.firstName,
+                lastName: data.lastName,
                 weight: data.weight,
                 height: data.height,
                 age: data.age,
