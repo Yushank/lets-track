@@ -24,11 +24,8 @@ export async function getChatResponse(foodItems: string): Promise<string> {
             model: 'google/gemma-3-4b-it:free',
             messages: [
                 {
-                    role: 'system',
-                    content: `you are a nutrition tracker, give me only the total nutrition of food i am asking for, which will include total calories, protein, carbs and fats. Don't provide me with reasoning i only want numbers in total.`
-                }, {
                     role: 'user',
-                    content: foodItems
+                    content: `Calculate nutrition for: ${foodItems}. Only return numbers for total calories, protein, carbs and fats. No reasoning or text.`
                 }
             ],
             temperature: 0.3,
