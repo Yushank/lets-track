@@ -65,6 +65,7 @@ export async function POST(req: NextRequest) {
                 userId: userId
             }
         });
+        console.log("meal in api/chat:", meal)
 
         // to save chat input in database
         // const chat = await prisma.chat.create({
@@ -74,6 +75,26 @@ export async function POST(req: NextRequest) {
         //         userId: userId
         //     }
         // })
+
+        // SENDING DATA TO SOCKET SERVER POST ROUTE
+        console.time("emit-time");
+        try {
+            const response = await fetch("http://localhost:3001/emit-meal", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(meal),
+                signal: AbortSignal.timeout(5000) // 5 second timeout
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error("Socket emit failed, continuing anyway:", error);
+        }
+        console.timeEnd("emit-time");
+        console.log("log reached here after await fetch");
+
 
         return NextResponse.json({
             msg: "chat sent successfully",

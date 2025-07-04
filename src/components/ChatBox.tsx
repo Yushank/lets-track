@@ -20,7 +20,7 @@ export const ChatBox = () => {
     //when /home/[date] use params.date as string directly to fech date, when [..date] then use before method
 
 
-    const { refetchMeal } = useMeals({ date }); //refetchmeal from hook is called here so we can make mount when sendinput function is called from here
+    // const { refetchMeal } = useMeals({ date }); //refetchmeal from hook is called here so we can make mount when sendinput function is called from here
     const { chats, isChatLoading, refetchChat } = useChat({ date });
     console.log("chats from useChat:", chats)
 
@@ -35,7 +35,7 @@ export const ChatBox = () => {
             const reply = response.data.reply;
             setOutput(reply);
 
-            refetchMeal(); //callback to run fetchMeal function in hook
+            // refetchMeal(); //callback to run fetchMeal function in hook
         }
         catch (error) {
             console.log(error)

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { useCallback, useEffect, useState } from "react"
+import socket from "../lib/socket";
 
 
 interface Meal {
@@ -33,52 +34,66 @@ interface Profile {
 export const useMeals = ({ date }: { date: string }) => {
     const [meals, setMeals] = useState<Meal[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [calories, setCalories] = useState([])
-    const [protein, setProtein] = useState([])
-    const [carbs, setCarbs] = useState([])
-    const [fats, setFats] = useState([])
+    const [totals, setTotals] = useState({
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fats: 0
+    });
 
     console.log("date in hook: ", date)
 
-    const fetchMeal = useCallback(async () => {
+    // Calculate totals helper
+    const calculateTotals = (meals: Meal[]) => ({
+        calories: meals.reduce((sum, m) => sum + m.calories, 0),
+        protein: meals.reduce((sum, m) => sum + m.protein, 0),
+        carbs: meals.reduce((sum, m) => sum + m.carbs, 0),
+        fats: meals.reduce((sum, m) => sum + m.fats, 0)
+    });
+
+    // Fetch meals
+    const fetchMeals = useCallback(async () => {
         try {
             if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
                 throw new Error("Invalid date format");
             }
 
             const response = await axios.get(`/api/chat/${date}`);
-            console.log("response from useMeals: ", response)
-            setMeals(response.data);
+            const fetchedMeals = response.data.meals || [];
 
-            // setCalories(response.data.meals.reduce((item : meal) => item.calories))   
-            // this can be the method to extract calories from the response.data.meals. There calories will be there for each meal, so we extract all that from there like [340, 340]. But it will not return the total
-            setCalories(response.data.meals.reduce((sum: number, meal: Meal) => sum + meal.calories, 0));
-            //this method not only extracts but give the total of that day meals also
-            setProtein(response.data.meals.reduce((sum: number, meal: Meal) => sum + meal.protein, 0));
-            setCarbs(response.data.meals.reduce((sum: number, meal: Meal) => sum + meal.carbs, 0));
-            setFats(response.data.meals.reduce((sum: number, meal: Meal) => sum + meal.fats, 0));
-
-            setIsLoading(false)
+            setMeals(fetchedMeals);
+            setTotals(calculateTotals(fetchedMeals));
+        } catch (error) {
+            console.error("Error fetching meals:", error);
+        } finally {
+            setIsLoading(false);
         }
-        catch (error) {
-            console.error("Error fetching meals: ", error)
-        }
-    }, [date])
+    }, [date]);
 
-
+    // Socket and initial fetch setup
     useEffect(() => {
-        fetchMeal();
-    }, [fetchMeal])
+        fetchMeals(); //calls fetch when inital mount or date change (as on date change fetchMeal run)
 
+        const handleNewMeal = (newMeal: Meal) => {
+            setMeals(prev => {
+                const updatedMeals = [...prev, newMeal];
+                setTotals(calculateTotals(updatedMeals));
+                return updatedMeals;
+            });
+        };
+
+        socket.on("newMeal", handleNewMeal);
+
+        return () => {
+            socket.off("newMeal", handleNewMeal);
+        };
+    }, [fetchMeals]);
 
     return {
         meals,
         isLoading,
-        calories,
-        protein,
-        carbs,
-        fats,
-        refetchMeal: fetchMeal
+        ...totals, //sending data as spread form (in component we fetch normally like const{calories, protein, carbs} = useMeals(date))
+        refetchMeals: fetchMeals
     };
 }
 
