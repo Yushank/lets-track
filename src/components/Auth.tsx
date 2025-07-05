@@ -105,20 +105,30 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                                 label="First Name"
                                 type="text"
                                 placeholder="Peter"
-                                onChange={(e) => setPostInputs({
-                                    ...postInputs,
-                                    firstName: e.target.value
-                                })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    const capitalized = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+                                    //this make first letter of sentence upper case
+                                    setPostInputs({
+                                        ...postInputs,
+                                        firstName: capitalized
+                                    })
+                                }}
                             ></LabelledInput>) : null}
 
                             {type === "signup" ? (<LabelledInput
                             label="Last Name"
                             type="text"
                             placeholder="Parker"
-                            onChange={(e) => setPostInputs({
-                                ...postInputs,
-                                lastName: e.target.value
-                            })}
+                            onChange={(e) => {
+                                    const value = e.target.value;
+                                    const capitalized = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+                                    //this make first letter of sentence upper case
+                                    setPostInputs({
+                                        ...postInputs,
+                                        lastName: capitalized
+                                    })
+                                }}
                             ></LabelledInput>) : null}
 
                             <LabelledInput
