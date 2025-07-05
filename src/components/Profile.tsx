@@ -5,7 +5,6 @@ import { useProfile } from "../hooks"
 import { ChangeEvent, useState } from "react";
 import { userTotalInfoPatchInput } from "../schemas/userTotalInfoSchema";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 type userInfoFormInput = {
     firstName: string;
