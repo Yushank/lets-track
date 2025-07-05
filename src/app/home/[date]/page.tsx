@@ -6,13 +6,13 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 
-interface Props {
+export default async function Home({
+    params,
+    searchParams,
+}: {
     params: { date: string };
-    searchParams: { source?: string };
-}
-
-
-export default async function Home({ params, searchParams }: Props) {
+    searchParams?: { source?: string };
+}) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
         redirect("/signin");
@@ -22,8 +22,8 @@ export default async function Home({ params, searchParams }: Props) {
     const date = now.toLocaleString();
     const today = format(date, "yyyy-MM-dd");
 
-    if (!searchParams.source && params.date !== today) {
-        redirect(`/home/${today}`)
+    if (!searchParams?.source && params.date !== today) {
+        redirect(`/home/${today}`);
     }
 
     //this above logic makes the page redirect to current date i.e today's date page, unless it has a source, which we add to url when redirecting to home page from calendar ("router.push(`/home/${format(newDate, 'yyyy-MM-dd')}?source=calendar`);")
