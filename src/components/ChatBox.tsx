@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { useChat, useMeals } from "../hooks";
+import { useChat } from "../hooks";
 import { useParams } from "next/navigation";
 import { format } from "date-fns";
 import { Bot, CircleUser } from "lucide-react";
@@ -13,14 +13,7 @@ export const ChatBox = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const params = useParams();
-    // const datePath = params.date as string[];
-    // const date = datePath[0];
-    // fetching url /home/date, then from there date = datePath[0] to fetch date and send to useMeals hook
     const date = params.date as string;
-    //when /home/[date] use params.date as string directly to fech date, when [..date] then use before method
-
-
-    // const { refetchMeal } = useMeals({ date }); //refetchmeal from hook is called here so we can make mount when sendinput function is called from here
     const { chats, isChatLoading, refetchChat } = useChat({ date });
     console.log("chats from useChat:", chats)
 
@@ -34,8 +27,6 @@ export const ChatBox = () => {
             console.log("out response", response)
             const reply = response.data.reply;
             setOutput(reply);
-
-            // refetchMeal(); //callback to run fetchMeal function in hook
         }
         catch (error) {
             console.log(error)

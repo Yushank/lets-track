@@ -1,5 +1,4 @@
 import axios from "axios";
-import { NextResponse } from "next/server";
 import { useCallback, useEffect, useState } from "react"
 import socket from "../lib/socket";
 
@@ -101,8 +100,6 @@ export const useMeals = ({ date }: { date: string }) => {
 
 // FOR FETCHING CHATS    
 export const useChat = ({ date }: { date: string }) => {
-    // const [inputChat, setInputChat] = useState([]);
-    // const [outputChat, setOutputChat] = useState([]);
     const [chats, setChats] = useState<Chat[]>([]);
     const [isChatLoading, setIsChatLoading] = useState(true)
 
@@ -114,10 +111,6 @@ export const useChat = ({ date }: { date: string }) => {
                 }
             });
             console.log("response from useChat:", response);
-
-            // setInputChat(response.data.chat.reduce((item: chat) => item.input));
-            // setOutputChat(response.data.chat.reduce((item: chat) => item.output))
-            // console.log("input chat in hook", inputChat)
 
             const chatData = Array.isArray(response.data.chat)  // Check if response is an array
                 ? response.data.chat                           // If yes, use it directly

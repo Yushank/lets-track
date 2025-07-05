@@ -67,15 +67,6 @@ export async function POST(req: NextRequest) {
         });
         console.log("meal in api/chat:", meal)
 
-        // to save chat input in database
-        // const chat = await prisma.chat.create({
-        //     data: {
-        //         input: text,
-        //         output: "",
-        //         userId: userId
-        //     }
-        // })
-
         // SENDING DATA TO SOCKET SERVER POST ROUTE
         console.time("emit-time");
         try {
@@ -108,37 +99,3 @@ export async function POST(req: NextRequest) {
         }, { status: 500 });
     }
 }
-
-
-// export async function GET(req: NextRequest) {
-//     const session = await getServerSession(authOptions);
-
-//     if(!session?.user?.id){
-//         return NextResponse.json({
-//             msg: "Unauthorised - No valid session user"
-//         }, {status: 401})
-//     };
-
-//     const userId = session.user.id;
-
-//     try{
-//         const url = new URL(req.url);
-//         const date = url.pathname.split('/').pop() || '';
-//         console.log("extracted date from url: ", date);
-
-//         const meals = await prisma.meal.findMany({
-//             where:{
-//                 userId: userId,
-//             }
-//         });
-
-//         return NextResponse.json({
-//             meals
-//         });
-//     }
-//     catch(error){
-//         return NextResponse.json({
-//             msg: `error fetching meals: ${error}`
-//         })
-//     }
-// }

@@ -33,16 +33,9 @@ export async function getChatResponse(foodItems: string): Promise<string> {
         }) as unknown as openRouterChatCompletion;
         //as unknown first reset the type, then as openRouterChatCompletion applies our custom type
 
-        // console.log("Full OpenRouter response:", JSON.stringify(response, null, 2));
-
         const message = response.choices[0]?.message;
         const responseText = message?.content || message?.reasoning || "Cannot Calculate";
         //check both content and reasoning , fallbacks to empty string if both are empty
-
-        // const calorieMatch = responseText?.match(/\d+\s*calories/i) || responseText?.match(/\d+/);
-        // //use regex to find calorie number in either "350 calories" or "350" format
-
-        // return calorieMatch ? `${calorieMatch[0]} calories` : "Cannot calculate the calories"
 
 
         return responseText;

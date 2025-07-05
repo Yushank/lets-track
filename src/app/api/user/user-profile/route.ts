@@ -1,6 +1,5 @@
 import { prisma } from "@/src/db";
 import { authOptions } from "@/src/lib/auth";
-import { userInfoInput } from "@/src/schemas/userInfoSchema";
 import { userTotalInfoPatchInput } from "@/src/schemas/userTotalInfoSchema";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
