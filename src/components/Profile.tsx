@@ -19,7 +19,6 @@ type userInfoFormInput = {
 export const ProfileComp = () => {
     const { profile } = useProfile();
     console.log("Profile received from useProfile in profile component:", profile);
-    const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
 
     const [infoInputs, setInfoInputs] = useState<userInfoFormInput>({

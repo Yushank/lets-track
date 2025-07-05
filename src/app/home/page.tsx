@@ -14,5 +14,5 @@ export default function DefaultHome(){
         console.log("now in home page:", now)
         console.log("current date home page: ", date);
         router.push(`/home/${format(date, "yyyy-MM-dd")}`);
-    }, []);
+    }, [router]);
 }

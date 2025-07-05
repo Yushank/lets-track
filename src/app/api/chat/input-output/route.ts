@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
                 userId: userId
             }
         })
+        console.log("chat-output:", chatOutput);
 
         return NextResponse.json({
             msg: "output sent successfuly to db"
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
     }
     catch (error) {
         return NextResponse.json({
-            error: "Error while seding output"
+            msg: `Error while sending output: ${error}`
         }, { status: 500 })
     }
 }

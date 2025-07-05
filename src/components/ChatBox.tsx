@@ -33,26 +33,26 @@ export const ChatBox = () => {
         }
     }
 
-    async function sendChat() {
-        try {
-            const res = await axios.post("/api/chat/input-output", {
-                output,
-                input
-            });
-
-            setInput("");
-            refetchChat(); //callback to run fetchChat function in hook
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
     useEffect(() => {
-        if (output !== "") {
-            sendChat();
-        }
-    }, [output])
+        if (output === "") return;
+
+        const sendChat = async () => {
+            try {
+                const res = await axios.post("/api/chat/input-output", {
+                    output,
+                    input
+                });
+                console.log("res from sendChat function:", res);
+
+                setInput("");
+                refetchChat();
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        sendChat();
+    }, [output, input, refetchChat]);
 
     return (
         <div className="h-full flex justify-center flex-col">
@@ -84,6 +84,7 @@ export const ChatBox = () => {
                     <div className="flex max-w-xl mx-auto pt-6 pb-4 gap-2">
                         <input className="flex-1 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             type="text"
+                            value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Write about your meal">
                         </input>
