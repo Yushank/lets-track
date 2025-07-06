@@ -1,0 +1,8 @@
+[phases.install]
+cmd = "npm install --include=dev"
+
+[phases.build]
+cmd = "npx tsc"
+
+[phases.start]
+cmd = "npm start"
