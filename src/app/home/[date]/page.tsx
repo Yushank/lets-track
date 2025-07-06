@@ -6,12 +6,14 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 
-interface HomeProps {
+export const dynamic = 'force-dynamic'; // Add this if you need dynamic rendering
+
+interface PageProps {
   params: { date: string };
-  searchParams?: { source?: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function Home({ params, searchParams }: HomeProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     redirect("/signin");
