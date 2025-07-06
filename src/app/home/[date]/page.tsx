@@ -6,33 +6,31 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 
-export default async function Home({
-    params,
-    searchParams,
-}: {
-    params: { date: string };
-    searchParams?: { source?: string };
-}) {
+interface HomeProps {
+  params: { date: string };
+  searchParams?: { source?: string };
+}
 
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
-        redirect("/signin");
-    }
+export default async function Home({ params, searchParams }: HomeProps) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    redirect("/signin");
+  }
 
-    const today = format(new Date(), "yyyy-MM-dd");
+  const today = format(new Date(), "yyyy-MM-dd");
 
-    if (!searchParams?.source && params.date !== today) {
-        redirect(`/home/${today}`);
-    }
+  if (!searchParams?.source && params.date !== today) {
+    redirect(`/home/${today}`);
+  }
 
-    return (
-        <div className="flex flex-col h-screen overflow-hidden">
-            <header className="shrink-0">
-                <TotalBar />
-            </header>
-            <main className="flex-1 overflow-hidden">
-                <ChatBox />
-            </main>
-        </div>
-    );
+  return (
+    <div className="flex flex-col h-screen overflow-hidden">
+      <header className="shrink-0">
+        <TotalBar />
+      </header>
+      <main className="flex-1 overflow-hidden">
+        <ChatBox />
+      </main>
+    </div>
+  );
 }
