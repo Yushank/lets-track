@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useChat } from "../hooks";
 import { useParams } from "next/navigation";
 import { format } from "date-fns";
@@ -12,6 +12,7 @@ import { Bot, CircleUser } from "lucide-react";
 export const ChatBox = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
+    const lastInputRef = useRef(""); //store the last input that was sent
     const params = useParams();
     const date = params.date as string;
     const { chats, isChatLoading, refetchChat } = useChat({ date });
@@ -19,7 +20,12 @@ export const ChatBox = () => {
 
 
     async function sendInput() {
+        if (!input.trim()) return; //don't send empty messages
+
         try {
+            //store the current input before clearing
+            lastInputRef.current = input;
+
             const response = await axios.post("/api/chat",
                 input,
             );
@@ -41,19 +47,23 @@ export const ChatBox = () => {
             try {
                 const res = await axios.post("/api/chat/input-output", {
                     output,
-                    input
+                    input: lastInputRef.current
                 });
                 console.log("res from sendChat function:", res);
 
-                
                 refetchChat();
+
+                //clear the stored input after successful save
+                lastInputRef.current = "";
             } catch (error) {
                 console.log(error);
             }
         };
 
         sendChat();
-    }, [output, input, refetchChat]);
+    }, [output, refetchChat]);
+    //now this useEffect will only run after output is changed not after every change when typing
+    // and will send only lastInputRef data not the current empty input data
 
     return (
         <div className="h-full flex justify-center flex-col">
