@@ -70,6 +70,8 @@ export async function POST(req: NextRequest) {
         // SENDING DATA TO SOCKET SERVER POST ROUTE
         console.time("emit-time");
         try {
+            if (!meal || Object.keys(meal).length === 0) return;
+            
             const response = await fetch(`${process.env.EMIT_SOCKET_URL!}/emit-meal`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

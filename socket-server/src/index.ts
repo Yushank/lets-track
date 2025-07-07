@@ -40,6 +40,7 @@ io.on('connection', (socket: Socket) => {
 //HTTP route to emit
 app.post('/emit-meal', (req: Request, res: Response) => {
     console.time("emit-process");
+    res.send("✅ Railway socket server is live!");
     const meal = req.body;
 
     if (!meal) {
