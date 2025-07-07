@@ -27,6 +27,7 @@ export const ChatBox = () => {
             console.log("out response", response)
             const reply = response.data.reply;
             setOutput(reply);
+            setInput("");
         }
         catch (error) {
             console.log(error)
@@ -44,7 +45,7 @@ export const ChatBox = () => {
                 });
                 console.log("res from sendChat function:", res);
 
-                setInput("");
+                
                 refetchChat();
             } catch (error) {
                 console.log(error);
