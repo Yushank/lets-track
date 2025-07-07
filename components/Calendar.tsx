@@ -18,7 +18,7 @@ export default function CalendarApp() {
     setDate(newDate);
 
     if(newDate instanceof Date){
-      router.push(`/home/${format(new Date(), "yyyy-MM-dd")}?source=calendar`);
+      router.push(`/home/${format(newDate, "yyyy-MM-dd")}?source=calendar`);
     }
   }
 
