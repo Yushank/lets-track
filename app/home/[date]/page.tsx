@@ -32,7 +32,8 @@ export default async function Home({
 
     const today = format(new Date(), "yyyy-MM-dd");
 
-    if (!resolvedSearchParams?.source && resolvedParams.date !== today) {
+    //redirect if source doesn't have calendar or it is not today date
+    if (resolvedSearchParams?.source !== 'calendar' && resolvedParams.date !== today) {
         redirect(`/home/${today}`);
     }
 
