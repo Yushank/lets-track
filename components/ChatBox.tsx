@@ -27,6 +27,7 @@ export const ChatBox = () => {
         try {
             //store the current input before clearing
             lastInputRef.current = input;
+            setInput(""); //clear input box
             setIsLoadingReply(true); //start reply loading, as reponse will now will be fetched
 
             const response = await axios.post("/api/chat",
@@ -36,7 +37,7 @@ export const ChatBox = () => {
             console.log("out response", response)
             const reply = response.data.reply;
             setOutput(reply);
-            setInput("");
+            
         }
         catch (error) {
             console.log(error)
