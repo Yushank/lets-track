@@ -18,6 +18,8 @@ export const ChatBox = () => {
     const { chats, isChatLoading, refetchChat } = useChat({ date });
     console.log("chats from useChat:", chats)
 
+    const [isLoadingReply, setIsLoadingReply] = useState(false);
+
 
     async function sendInput() {
         if (!input.trim()) return; //don't send empty messages
@@ -25,6 +27,7 @@ export const ChatBox = () => {
         try {
             //store the current input before clearing
             lastInputRef.current = input;
+            setIsLoadingReply(true); //start reply loading, as reponse will now will be fetched
 
             const response = await axios.post("/api/chat",
                 input,
@@ -37,6 +40,9 @@ export const ChatBox = () => {
         }
         catch (error) {
             console.log(error)
+        }
+        finally {
+            setIsLoadingReply(false) //Done reply loading, after setOutput(reply) is done
         }
     }
 
@@ -88,7 +94,13 @@ export const ChatBox = () => {
                     {/* CURRENT OUTPUT */}
                     <div className="border border-gray-500 rounded-lg p-8 dark:border-gray-200">
                         <Bot className="h-5 w-5 mt-0.5 text-green-500" />
-                        <p className="text-gray-700 dark:text-white whitespace-pre-line">{output}</p>
+                        <p className="text-gray-700 dark:text-white whitespace-pre-line">
+                            {isLoadingReply ? (
+                                <span className="animate-pulse text-gray-500">Typing...</span> //typing animation if response is not loaded and isLoadingReply is true
+                            ) : (
+                                output
+                            )}
+                        </p>
                     </div>
 
                     {/* INPUT AREA */}
@@ -97,6 +109,11 @@ export const ChatBox = () => {
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && input.trim()) {  //sends input on Enter key press and checks if input is not empty before
+                                    sendInput()
+                                }
+                            }}
                             placeholder="Write about your meal">
                         </input>
                         <button
