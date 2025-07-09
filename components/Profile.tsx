@@ -76,10 +76,10 @@ export const ProfileComp = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+        <div className="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
 
             {/* WHEN NOT EDITING SHOW USER INFORMATION COMPONENT */}
-            {!isEditing ? (<div className="max-w-md mx-auto p-6">
+            {!isEditing ? (<div className="max-w-md mx-auto p-4">
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-colors duration-200">
                     <div className="p-6">
                         <div className="flex flex-col items-center mb-6">
