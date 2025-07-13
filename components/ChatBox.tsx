@@ -75,10 +75,10 @@ export const ChatBox = () => {
     return (
         <div className="h-full flex justify-center flex-col">
             <div className="flex justify-center">
-                <div className="w-full max-w-xl p-6 rounded-lg shadow-md border border-gray-400">
+                <div className="w-full max-w-sm sm:max-w-xl p-4 sm:p-6 rounded-lg shadow-md border border-gray-400">
 
                     {/* CHAT HISTORY */}
-                    <div className="border border-gray rounded-lg p-20 h-64 overflow-y-auto">
+                    <div className="border border-gray rounded-lg p-20 h-64 overflow-y-auto dark:border-gray-500 dark:bg-gray-800">
                         {isChatLoading ? (
                             <p className="text-center dark:text-white">Loading chats...</p>
                         ) : chats.length > 0 ? (
@@ -93,11 +93,11 @@ export const ChatBox = () => {
                     </div>
 
                     {/* CURRENT OUTPUT */}
-                    <div className="border border-gray-500 rounded-lg p-8 dark:border-gray-200">
+                    <div className="border border-gray-500 rounded-lg p-8 dark:border-gray-500 dark:bg-gray-900">
                         <Bot className="h-5 w-5 mt-0.5 text-green-500" />
                         <p className="text-gray-700 dark:text-white whitespace-pre-line">
                             {isLoadingReply ? (
-                                <span className="animate-pulse text-gray-500">Typing...</span> //typing animation if response is not loaded and isLoadingReply is true
+                                <span className="animate-pulse text-gray-500 dark:text-gray-400">Typing...</span> //typing animation if response is not loaded and isLoadingReply is true
                             ) : (
                                 output
                             )}
@@ -149,7 +149,7 @@ function Chats({ chat }: chat) {
 
             <div className="flex items-start gap-2 mb-1 dark:text-white">
                 <Bot className="mt-0.5 h-5 w-5 text-green-500" />
-                <p className="text-gray-600 flex gap-3">{chat.output}</p>
+                <p className="text-gray-600 dark:text-gray-300 flex gap-3">{chat.output}</p>
             </div>
 
             <p className="text-xs text-gray-500 font-light dark:text-white">

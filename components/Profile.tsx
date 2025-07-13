@@ -79,11 +79,11 @@ export const ProfileComp = () => {
         <div className="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
 
             {/* WHEN NOT EDITING SHOW USER INFORMATION COMPONENT */}
-            {!isEditing ? (<div className="max-w-md mx-auto p-4">
+            {!isEditing ? (<div className="max-w-sm sm:max-w-md mx-auto p-4">
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-colors duration-200">
-                    <div className="p-6">
+                    <div className="p-6 sm:p-8">
                         <div className="flex flex-col items-center mb-6">
-                            <div className="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mb-4">
+                            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mb-4">
                                 <CircleUserRound className="w-12 h-12 text-gray-500 dark:text-gray-400" />
                             </div>
                             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">

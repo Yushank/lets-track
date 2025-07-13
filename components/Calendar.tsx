@@ -23,7 +23,7 @@ export default function CalendarApp() {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-start p-5 bg-gray-50 dark:bg-gray-700">
+    <div className="min-h-screen flex justify-center items-start p-5 bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-4xl">
 
         {/* Calendar positioned left */}
@@ -31,13 +31,13 @@ export default function CalendarApp() {
           <Calendar
             onChange={handleDateChange} //only triggers on user interaction
             value={date}
-            className="rounded-lg border border-gray-200 shadow-md p-2 bg-white"
+            className="rounded-lg border border-gray-200 shadow-md p-2 bg-white dark:bg-gray-800 dark:text-white"
           />
         </div>
 
         {/* Centered selected date */}
         <div className="mt-8 text-center">
-          <p className="inline-block bg-gray-100 rounded-lg px-4 py-3 text-gray-700">
+          <p className="inline-block bg-blue-100 rounded-lg px-4 py-3 text-gray-700">
             <span className="font-semibold">Selected Date:</span>{" "}
             {date instanceof Date ? date.toDateString() : "No date selected"}
           </p>

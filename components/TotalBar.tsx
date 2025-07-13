@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useMeals } from "../hooks";
-import { Banana, Beef, IceCream, Utensils } from "lucide-react";
+import { Banana, Beef, IceCream, Tally1, Utensils } from "lucide-react";
 
 
 
@@ -17,24 +17,26 @@ export const TotalBar = () => {
     console.log("carbs extracted from meals array: ", carbs);
     console.log("fats extracted from meals array: ", fats);
 
-    return (
-        <div className="pt-8 flex justify-around rounded-lg shadow-md pb-8">
-            <div className="flex gap-2">
-                <Utensils className="text-gray-500 dark:text-white" />
-                <p className="dark:text-white">Total calories: {calories}</p>
-            </div>
-            <div className="flex gap-2">
-                <Beef className="text-gray-500 dark:text-white" />
-                <p className="dark:text-white">Total protein: {protein}</p>
-            </div>
-            <div className="flex gap-2">
-                <Banana className="text-gray-500 dark:text-white" />
-                <p className="dark:text-white">Total carbs: {carbs}</p>
-            </div>
-            <div className="flex gap-2">
-                <IceCream className="text-gray-500 dark:text-white" />
-                <p className="dark:text-white">Total fats: {fats}</p>
-            </div>
+  return (
+    <div className="w-full px-4 py-3 sm:py-6 bg-white dark:bg-gray-800 shadow-sm sm:shadow-md sm:dark:shadow-gray-400 dark:shadow-gray-900">
+      <div className="grid grid-cols-2 sm:flex sm:justify-around gap-4 sm:gap-6 text-sm sm:text-base text-gray-800 dark:text-white">
+        <div className="flex items-center gap-2">
+          <Utensils className="w-5 h-5 text-gray-500 dark:text-white" />
+          <p>Calories: <span className="font-semibold">{calories}</span></p>
         </div>
-    )
+        <div className="flex items-center gap-2">
+          <Beef className="w-5 h-5 text-gray-500 dark:text-white" />
+          <p>Protein: <span className="font-semibold">{protein}</span></p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Banana className="w-5 h-5 text-gray-500 dark:text-white" />
+          <p>Carbs: <span className="font-semibold">{carbs}</span></p>
+        </div>
+        <div className="flex items-center gap-2">
+          <IceCream className="w-5 h-5 text-gray-500 dark:text-white" />
+          <p>Fats: <span className="font-semibold">{fats}</span></p>
+        </div>
+      </div>
+    </div>
+  );
 }

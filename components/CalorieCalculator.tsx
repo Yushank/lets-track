@@ -30,11 +30,11 @@ export function CalorieCalculator() {
 
     return (
         <div className="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-            <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 max-w-xl mx-auto mt-6">
+            <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-4 sm:p-6 max-w-sm sm:max-w-md lg:max-w-xl mx-auto mt-4 sm:mt-6">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
                     Select Your Activity Level
                 </h2>
-                <div className="flex flex-wrap gap-3 mb-4">
+                <div className="flex flex-col sm:flex-row gap-3 mb-4">
                     <button
                         onClick={() => setActivity(1.4)}
                         className={`px-4 py-2 rounded-lg transition

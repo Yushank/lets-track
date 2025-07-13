@@ -23,7 +23,7 @@ export const Sidebar = () => {
     }
 
     const sidebarClassname = `fixed top-0 left-0 flex flex-col h-[100%] justify-between shadow-xl
-    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white overflow-hidden ${isCollapsed ? "w-20" : "w-64"}`
+    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white overflow-hidden ${isCollapsed ? "w-16 md:w-20" : "w-64 lg:w-64"}`
 
     return (
         <div className={sidebarClassname}>
