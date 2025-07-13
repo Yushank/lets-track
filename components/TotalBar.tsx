@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useMeals } from "../hooks";
-import { Banana, Beef, IceCream, Tally1, Utensils } from "lucide-react";
+import { Banana, Beef, IceCream, Utensils } from "lucide-react";
 
 
 
