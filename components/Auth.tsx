@@ -7,6 +7,7 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { Eye, EyeOff } from "lucide-react";
 
 
 
@@ -21,6 +22,12 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
     });
 
     const [currentDate, setCurrentDate] = useState('');
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
+    }
 
     useEffect(() => {
         const now = new Date();
@@ -95,10 +102,15 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                                 label="Email"
                                 type="text"
                                 placeholder="peter@gmail.com"
-                                onChange={(e) => setPostInputs({
-                                    ...postInputs,
-                                    email: e.target.value
-                                })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    const lowercase = value.toLowerCase();
+                                    //this will make the input for email always lowercase
+                                    setPostInputs({
+                                        ...postInputs,
+                                        email: lowercase
+                                    })
+                                }}
                             ></LabelledInput>
 
                             {type === "signup" ? (<LabelledInput
@@ -117,10 +129,10 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                             ></LabelledInput>) : null}
 
                             {type === "signup" ? (<LabelledInput
-                            label="Last Name"
-                            type="text"
-                            placeholder="Parker"
-                            onChange={(e) => {
+                                label="Last Name"
+                                type="text"
+                                placeholder="Parker"
+                                onChange={(e) => {
                                     const value = e.target.value;
                                     const capitalized = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
                                     //this make first letter of sentence upper case
@@ -131,20 +143,34 @@ export function Auth({ type }: { type: "signin" | "signup" }) {
                                 }}
                             ></LabelledInput>) : null}
 
-                            <LabelledInput
-                            label="Password"
-                            type="password"
-                            placeholder="******"
-                            onChange={(e) => setPostInputs({
-                                ...postInputs,
-                                password: e.target.value
-                            })}
-                            ></LabelledInput>
+                            <div className="relative">
+                                <LabelledInput
+                                    label="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="******"
+                                    onChange={(e) => setPostInputs({
+                                        ...postInputs,
+                                        password: e.target.value
+                                    })}
+                                ></LabelledInput>
 
-                            <button 
-                            onClick={type === "signup" ? sendSignupRequest : sendSigninRequest}
-                            type="button"
-                            className="mt-8 w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 me-2"
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute inset-y-10 right-0 pr-3 flex items-center hover:text-blue-600 focus:outline-none"
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="h-5 w-5 text-gray-400" />
+                                    ) : (
+                                        <Eye className="h-5 w-5 text-gray-400" />
+                                    )}
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={type === "signup" ? sendSignupRequest : sendSigninRequest}
+                                type="button"
+                                className="mt-8 w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 me-2"
                             >{type === "signup" ? "Lets start" : "signin"}</button>
                         </div>
                     </div>
