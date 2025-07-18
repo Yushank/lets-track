@@ -38,7 +38,7 @@ export default async function Home({
     }
 
     return (
-        <div className="flex flex-col h-screen overflow-hidden dark:bg-gray-900">
+        <div className="flex flex-col h-screen overflow-hidden dark:bg-background">
             <header className="shrink-0">
                 <TotalBar />
             </header>

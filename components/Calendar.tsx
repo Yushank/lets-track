@@ -23,7 +23,7 @@ export default function CalendarApp() {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-start p-5 bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex justify-center items-start p-5 bg-gray-50 dark:bg-background">
       <div className="w-full max-w-4xl">
 
         {/* Calendar positioned left */}

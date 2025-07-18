@@ -18,7 +18,7 @@ export const TotalBar = () => {
     console.log("fats extracted from meals array: ", fats);
 
   return (
-    <div className="w-full px-4 py-3 sm:py-6 bg-white dark:bg-gray-800 shadow-sm sm:shadow-md sm:dark:shadow-gray-400 dark:shadow-gray-900">
+    <div className="w-full px-4 py-3 sm:py-6 bg-white dark:bg-background shadow-sm sm:shadow-md sm:dark:shadow-gray-400 dark:shadow-gray-900">
       <div className="grid grid-cols-2 sm:flex sm:justify-around gap-4 sm:gap-6 text-sm sm:text-base text-gray-800 dark:text-white">
         <div className="flex items-center gap-2">
           <Utensils className="w-5 h-5 text-gray-500 dark:text-white" />

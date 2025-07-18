@@ -23,13 +23,13 @@ export const Sidebar = () => {
     }
 
     const sidebarClassname = `fixed top-0 left-0 flex flex-col h-[100%] justify-between shadow-xl
-    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white overflow-hidden ${isCollapsed ? "w-16 md:w-20" : "w-64 lg:w-64"}`
+    transition-all duration-300 h-full z-40 dark:bg-sidebar overflow-y-auto bg-white overflow-hidden ${isCollapsed ? "w-16 md:w-20" : "w-64 lg:w-64"}`
 
     return (
         <div className={sidebarClassname}>
             <div className='flex h-full w-full flex-col justify-between'>
                 <div>
-                    <div className='z-50 flex min-h-[56px] items-center justify-between px-6 pt-3 bg-white dark:bg-black'>
+                    <div className='z-50 flex min-h-[56px] items-center justify-between px-6 pt-3 bg-white dark:bg-sidebar'>
                         <button onClick={() => { dispatch(toggleCollapse()) }}>
                             <AlignJustify className='h-6 w-6 hover:text-gray-400 text-gray-900 dark:text-white' />
                         </button>
@@ -74,7 +74,7 @@ const SidebarLink = ({ href, icon: Icon, label }: sidebarLinkProps) => {
         <Link href={href} className="w-full">
             <div className={
                 `relative flex cursor-pointer items-center transition-colors
-                hover:bg-blue-200 dark:bg-black dark:hover:bg-gray-700 ${isActive ? "bg-blue-300 text-white dark:bg-gray-600" : ""}
+                hover:bg-blue-200 dark:bg-sidebar dark:hover:bg-sidebarHover ${isActive ? "bg-blue-300 text-white dark:bg-gray-600" : ""}
                 px-4 py-6 ${isCollapsed ? "justify-center" : "gap-3 justify-start"}`
             }>
                 {isActive && (

@@ -29,7 +29,7 @@ export function CalorieCalculator() {
     }
 
     return (
-        <div className="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+        <div className="h-full bg-gray-50 dark:bg-background transition-colors duration-200">
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-4 sm:p-6 max-w-sm sm:max-w-md lg:max-w-xl mx-auto mt-4 sm:mt-6">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
                     Select Your Activity Level
