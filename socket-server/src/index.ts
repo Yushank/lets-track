@@ -17,7 +17,7 @@ const io = new Server(server, {
 });
 
 app.use(cors({
-    origin: "*",
+    origin: "https://lets-track.vercel.app/",
     methods: ["GET", "POST"]
 }));
 app.use(express.json());

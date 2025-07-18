@@ -79,6 +79,8 @@ export async function POST(req: NextRequest) {
                 signal: AbortSignal.timeout(5000) // 5 second timeout
             });
 
+            console.log("sending to socket:", meal);
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
