@@ -8,30 +8,32 @@ import { RefObject, useEffect, useRef } from "react";
 
 export const HeroSection = () => {
   return (
-    <Container>
-      <section className="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10">
-        <div className="flex-1 text-center md:text-left space-y-4">
-          <h1 className="font-semibold text-gray-900 text-4xl md:text-5xl">
-            The End of "Food Not Found"
-          </h1>
-          <p className="font-light text-gray-700 text-xl">
-            Track any meal with AI—no more scrolling through endless lists.
-          </p>
-          <div className="flex justify-center md:justify-start gap-4 pt-6">
-            <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
-              LET'S TRACK
-            </button>
-            <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
-              SIGN IN
-            </button>
+    <section className="HeroSection sticky top-0 z-0 min-h-screen bg-white">
+      <Container classname="">
+        <div className="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10">
+          <div className="flex-1 text-center md:text-left space-y-4">
+            <h1 className="font-semibold text-gray-900 text-4xl md:text-5xl">
+              The End of "Food Not Found"
+            </h1>
+            <p className="font-light text-gray-700 text-xl">
+              Track any meal with AI—no more scrolling through endless lists.
+            </p>
+            <div className="flex justify-center md:justify-start gap-4 pt-6">
+              <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
+                LET'S TRACK
+              </button>
+              <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
+                SIGN IN
+              </button>
+            </div>
+          </div>
+          <div className="flex-1 flex justify-center lg:ml-4 lg:pl-20">
+            {/* <AnimatedScale /> */}
+            <AnimatedBurger />
           </div>
         </div>
-        <div className="flex-1 flex justify-center lg:ml-4">
-          {/* <AnimatedScale /> */}
-          <AnimatedBurger />
-        </div>
-      </section>
-    </Container>
+      </Container>
+    </section>
   );
 };
 
@@ -319,7 +321,7 @@ function AnimatedText({ lineRef, num }: AnimatedTextProps) {
           start: "bottom center",
           end: "center center",
           scrub: 1,
-          markers: true,
+          // markers: true,
         },
         opacity: 1,
         duration: 10,
