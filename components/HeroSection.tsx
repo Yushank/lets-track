@@ -56,7 +56,7 @@ function AnimatedBurger() {
           trigger: burgerRef.current, //what moves from veiwport that triger the animation
           start: "center center", //start animation when center of burgerRef and viewport cross
           end: "bottom top", //stops animation when bottom of burgerRef and top of viewport corsses
-          markers: true, //this will show the burgerRef and viewports points that trigger the animation
+          // markers: true, //this will show the burgerRef and viewports points that trigger the animation
           scrub: 1, //smooths the animation
         },
         y: -70, //end point of animation
@@ -73,7 +73,7 @@ function AnimatedBurger() {
           trigger: burgerRef.current,
           start: "center center",
           end: "bottom top",
-          markers: true,
+          // markers: true,
           scrub: 1,
         },
         y: -60,
@@ -90,7 +90,7 @@ function AnimatedBurger() {
           trigger: burgerRef.current,
           start: "center center",
           end: "bottom top",
-          markers: true,
+          // markers: true,
           scrub: 1,
         },
         y: 0,
@@ -107,7 +107,7 @@ function AnimatedBurger() {
           trigger: burgerRef.current,
           start: "center center",
           end: "bottom top",
-          markers: true,
+          // markers: true,
           scrub: 1,
         },
         y: 45,
@@ -125,7 +125,7 @@ function AnimatedBurger() {
           trigger: burgerRef.current,
           start: "center center",
           end: "bottom top",
-          markers: true,
+          // markers: true,
           scrub: 1,
         },
         y: 55,
@@ -138,9 +138,11 @@ function AnimatedBurger() {
     };
   }, []);
 
+  const numberArray = ["150", "20", "220", "20", "175"];
+
   return (
     <div
-      className="w-[200px] h-[150px] lg:w-[300px] lg:h-[200px]"
+      className="w-[300px] h-[200px] lg:w-[350px] lg:h-[200px]"
       ref={burgerRef}
     >
       <div ref={imageRef1} className="flex">
@@ -151,7 +153,7 @@ function AnimatedBurger() {
           height={100}
           className="w-full max-w-sm md:max-w-md"
         />
-        <AnimatedLines imgRef={burgerRef} />
+        <AnimatedLines imgRef={burgerRef} num={numberArray[0]} />
       </div>
       <div ref={imageRef2} className="flex">
         <Image
@@ -161,7 +163,7 @@ function AnimatedBurger() {
           height={100}
           className="w-full max-w-sm md:max-w-md"
         />
-        <AnimatedLines imgRef={burgerRef} />
+        <AnimatedLines imgRef={burgerRef} num={numberArray[1]} />
       </div>
       <div ref={imageRef3} className="flex">
         <Image
@@ -171,7 +173,7 @@ function AnimatedBurger() {
           height={100}
           className="w-full max-w-sm md:max-w-md"
         />
-        <AnimatedLines imgRef={burgerRef} />
+        <AnimatedLines imgRef={burgerRef} num={numberArray[2]} />
       </div>
       <div ref={imageRef4} className="flex">
         <Image
@@ -181,7 +183,7 @@ function AnimatedBurger() {
           height={100}
           className="w-full max-w-sm md:max-w-md"
         />
-        <AnimatedLines imgRef={burgerRef} />
+        <AnimatedLines imgRef={burgerRef} num={numberArray[3]} />
       </div>
       <div ref={imageRef5} className="flex">
         <Image
@@ -191,7 +193,7 @@ function AnimatedBurger() {
           height={100}
           className="w-full max-w-sm md:max-w-md"
         />
-        <AnimatedLines imgRef={burgerRef} />
+        <AnimatedLines imgRef={burgerRef} num={numberArray[4]} />
       </div>
     </div>
   );
@@ -199,9 +201,10 @@ function AnimatedBurger() {
 
 interface RefProps {
   imgRef: RefObject<HTMLImageElement | null>;
+  num: String;
 }
 
-function AnimatedLines({ imgRef }: RefProps) {
+function AnimatedLines({ imgRef, num }: RefProps) {
   const lineRef = useRef<HTMLDivElement>(null);
   const dotRef1 = useRef(null);
   const dotRef2 = useRef(null);
@@ -235,7 +238,7 @@ function AnimatedLines({ imgRef }: RefProps) {
           start: "center center",
           end: "bottom bottom",
           scrub: 1,
-          markers: true,
+          // markers: true,
         },
       }
     );
@@ -247,7 +250,7 @@ function AnimatedLines({ imgRef }: RefProps) {
       },
       {
         scrollTrigger: {
-          trigger: lineRef.current,
+          trigger: imgRef.current,
           start: "center center",
           end: "bottom bottom",
           scrub: 1,
@@ -276,7 +279,7 @@ function AnimatedLines({ imgRef }: RefProps) {
   }, []);
 
   return (
-    <div ref={lineRef} className="w-[5px] lg:w-[10px]">
+    <div ref={lineRef} className="flex items-center space-x-2">
       <svg
         width="75"
         height="7"
@@ -284,10 +287,49 @@ function AnimatedLines({ imgRef }: RefProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 4H145" stroke="#1F1F1F" stroke-width="3" />
-        <circle ref={dotRef1} cx="3.5" cy="3.5" r="3.5" fill="#1F1F1F" />
-        <circle ref={dotRef2} cx="145.5" cy="3.5" r="3.5" fill="#1F1F1F" />
+        <path d="M3 4H145" stroke="#1F1F1F" strokeWidth="2" />
+        <circle ref={dotRef1} cx="3.5" cy="3.5" r="2.5" fill="#1F1F1F" />
+        <circle ref={dotRef2} cx="145.5" cy="3.5" r="2.5" fill="#1F1F1F" />
       </svg>
+
+      <AnimatedText lineRef={lineRef} num={num} />
+    </div>
+  );
+}
+
+interface AnimatedTextProps {
+  lineRef: RefObject<HTMLDivElement | null>;
+  num: String;
+}
+
+function AnimatedText({ lineRef, num }: AnimatedTextProps) {
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(
+      textRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: lineRef.current,
+          start: "bottom center",
+          end: "center center",
+          scrub: 1,
+          markers: true,
+        },
+        opacity: 1,
+        duration: 10,
+      }
+    );
+  });
+
+  return (
+    <div ref={textRef}>
+      <p className="text-gray-700 font-light">{num}cal</p>
     </div>
   );
 }
