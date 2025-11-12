@@ -3,85 +3,116 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const Cta = () => {
-  useEffect(() => {
-    gsap.registerPlugin(SplitText, ScrollTrigger);
+  const heading1Ref = useRef<HTMLHeadingElement>(null);
+  const heading2Ref = useRef<HTMLHeadingElement>(null);
+  const heading3Ref = useRef<HTMLHeadingElement>(null);
 
-    document.fonts.ready.then(() => {
-      const split = new SplitText(".SplitText", {
-        type: "words,lines",
-        linesClass: "line",
+  useEffect(() => {
+    const titleHeadings = [
+      heading1Ref.current,
+      heading2Ref.current,
+      heading3Ref.current,
+    ].filter(Boolean) as HTMLElement[];
+
+    const splits: SplitText[] = [];
+    const containers = titleHeadings.map((heading) => heading.parentElement);
+
+    titleHeadings.forEach((heading: HTMLElement, index: number) => {
+      const split = SplitText.create(heading, {
+        type: "chars",
+        charsClass: "char",
+      });
+      splits.push(split);
+
+      // Set intial character positions
+      split.chars.forEach((char: Element, i: number) => {
+        const charInitialY = i % 2 === 0 ? -150 : 150;
+        gsap.set(char, { y: charInitialY });
       });
 
-      // gsap.set(split.lines, { yPercent: 100, opacity: 0 });
+      // Set inital container positions
+      const containerX = index === 1 ? -100 : 100;
+      gsap.set(containers[index], { x: `${containerX}%` });
+    });
 
-      // gsap.set(".Split", { opacity: 1 });
+    //for each heading, animate their cplit text and their respective container
+    titleHeadings.forEach((heading: HTMLElement, index: number) => {
+      const container = containers[index];
+      const split = splits[index];
 
-      gsap.fromTo(
-        split.lines,
-        {
-          yPercent: 100,
-          opacity: 0,
+      const outerContainer = heading.parentElement?.parentElement;
+
+      //contianer animation
+      gsap.to(container, {
+        x: 0,
+        scrollTrigger: {
+          trigger: outerContainer,
+          start: "top bottom",
+          end: "top -25%",
+          scrub: 1,
+          markers: true,
         },
-        {
-          duration: 0.6,
-          yPercent: 0,
-          opacity: 1,
-          stagger: 0.1,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: ".SplitText",
-            start: "top 80%",
-            toggleActions: "play none none none",
-            markers: true,
-            scrub: 1,
-          },
-        }
-      );
+      });
 
-      gsap.fromTo(
-        ".FadeText",
-        {
-          opacity: 0,
+      //characters animation
+      gsap.to(split.chars, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.03,
+        scrollTrigger: {
+          trigger: outerContainer,
+          start: "top bottom",
+          end: "top -25%",
+          scrub: 1,
         },
-        {
-          duration: 2,
-          opacity: 1,
-          scrollTrigger: {
-            trigger: ".FadeText",
-            start: "top 80%",
-            scrub: 1,
-          },
-        }
-      );
+      });
     });
 
     return () => {
+      splits.forEach((split) => split.revert());
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   return (
-    <section className="min-h-screen text-center">
-      <div className="bg-green-500 py-10 text-center">
-        <h1 className="SplitText text-5xl font-semibold text-gray-50 pt-2">
-          No more "food not found" moments
-        </h1>
-        <p className="FadeText py-4 text-gray-700">
-          No matter what’s on your plate — our AI calculates it.
-        </p>
+    <section className="relative w-full overflow-hidden">
+      <div className="h-[85vh] flex items-center bg-primary overflow-hidden">
+        <div className="w-full relative flex justify-center will-change-transform">
+          <h1
+            ref={heading1Ref}
+            className="font-montserrat font-medium md:font-semibold text-4xl md:text-8xl"
+          >
+            No more
+          </h1>
+        </div>
       </div>
-
-      <div className="flex justify-center mt-10">
-        <div className="border border-gray-800 rounded-lg px-10 py-20 flex flex-col justify-center items-center w-full max-w-md shadow-md">
-          <h1 className="text-3xl text-gray-900">Robot</h1>
-          <p className="text-gray-800">Calories in your meal are 355</p>
+      <div className="h-[85vh] flex items-center bg-white overflow-hidden">
+        <div className="w-full relative flex justify-center will-change-transform">
+          <h1
+            ref={heading2Ref}
+            className="font-montserrat font-semibold text-4xl md:text-8xl"
+          >
+            Food not
+          </h1>
+        </div>
+      </div>
+      <div className="h-[85vh] flex items-center bg-primary overflow-hidden">
+        <div className="w-full relative flex justify-center will-change-transform">
+          <h1
+            ref={heading3Ref}
+            className="font-montserrat font-semibold text-4xl md:text-8xl"
+          >
+            Found moments
+          </h1>
         </div>
       </div>
 
-      <div className="flex mt-20 flex-col items-center">
+      <div className="flex mt-20 flex-col items-center pt-10">
         <h1 className="text-4xl font-semibold text-gray-900">
           Ask AI and track what you ate today
         </h1>

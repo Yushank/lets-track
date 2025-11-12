@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .app {
   height: 100%;
   width: 100%;
   @apply text-sm;
   @apply bg-black;
   @apply dark:bg-black;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 2px rgb(180, 180, 180);
+  -webkit-text-fill-color: transparent;
 }

@@ -18,7 +18,7 @@ export const FeatureSection = () => {
               quos autem! Ut?
             </p>
           </div>
-          <div className="flex-1 justify-center md:justify-end bg-black rounded-lg py-6 drop-shadow-[10px_10px_0_#22c55e]">
+          <div className="flex-1 justify-center md:justify-end bg-black rounded-lg py-6 drop-shadow-[10px_10px_0_#52ea71]">
             <video
               src="/assets/input-output.mp4"
               autoPlay
@@ -30,7 +30,7 @@ export const FeatureSection = () => {
           </div>
         </section>
         <section className="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="flex-1 justify-center md:justify-end bg-black rounded-lg py-6 drop-shadow-[-10px_10px_0_#22c55e]">
+          <div className="flex-1 justify-center md:justify-end bg-black rounded-lg py-6 drop-shadow-[-10px_10px_0_#52ea71]">
             <video
               src="/assets/input-output.mp4"
               autoPlay

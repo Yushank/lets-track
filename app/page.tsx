@@ -4,12 +4,23 @@ import { Cta } from "@/components/Cta";
 import { FeatureSection } from "@/components/FeatureSection";
 import { FooterSection } from "@/components/FooterSection";
 import { HeroSection } from "@/components/HeroSection";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { LenisRef, ReactLenis } from "lenis/react";
 
 export default function LandingPage() {
+  const lenisRef = useRef<LenisRef>(null);
+
   useEffect(() => {
+    function update(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+
+    gsap.ticker.lagSmoothing(0);
+
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.to(".HeroSection", {
@@ -23,13 +34,21 @@ export default function LandingPage() {
       duration: 10,
       ease: "none",
     });
+
+    return () => gsap.ticker.remove(update);
   }, []);
   return (
-    <main className="relative">
-      <HeroSection />
-      <FeatureSection />
-      <Cta />
-      <FooterSection />
-    </main>
+    <ReactLenis
+      ref={lenisRef}
+      root
+      options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}
+    >
+      <main className="relative">
+        <HeroSection />
+        <FeatureSection />
+        <Cta />
+        <FooterSection />
+      </main>
+    </ReactLenis>
   );
 }

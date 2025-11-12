@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Jersey_10, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import ClientWrapper from "./clientWrapper";
+
+export const jersey10 = Jersey_10({
+  weight: "400", // Jersey 10 only has one weight
+  subsets: ["latin"],
+  variable: "--font-jersey10",
+});
+
+export const montserrat = Montserrat({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +40,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jersey10.variable} ${montserrat.variable} antialiased`}
       >
         <Providers>
-          <ClientWrapper>
-            {children}
-          </ClientWrapper>
+          <ClientWrapper>{children}</ClientWrapper>
         </Providers>
       </body>
     </html>
