@@ -55,7 +55,7 @@ export const Cta = () => {
           start: "top bottom",
           end: "top -25%",
           scrub: 1,
-          markers: true,
+          // markers: true,
         },
       });
 
@@ -112,7 +112,7 @@ export const Cta = () => {
         </div>
       </div>
 
-      <div className="flex mt-20 flex-col items-center pt-10">
+      <div className="flex mt-20 flex-col items-center pt-10 bg-white">
         <h1 className="text-4xl font-semibold text-gray-900">
           Ask AI and track what you ate today
         </h1>

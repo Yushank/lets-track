@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LenisRef, ReactLenis } from "lenis/react";
+import { NavbarMenu } from "@/components/NavbarMenu";
 
 export default function LandingPage() {
   const lenisRef = useRef<LenisRef>(null);
@@ -44,6 +45,7 @@ export default function LandingPage() {
       options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}
     >
       <main className="relative">
+        <NavbarMenu />
         <HeroSection />
         <FeatureSection />
         <Cta />
