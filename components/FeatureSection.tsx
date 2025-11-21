@@ -9,54 +9,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const FeatureSection = () => {
-  // const divRef1 = useRef<HTMLDivElement>(null);
-  // const divRef2 = useRef<HTMLDivElement>(null);
-  // const textRef1 = useRef<HTMLHeadingElement>(null);
-
-  // useEffect(() => {
-  //   // const texts = [divRef1.current, divRef2.current].filter(
-  //   //   Boolean
-  //   // ) as HTMLDivElement[];
-
-  //   // const splits: SplitText[] = [];
-
-  //   // texts.forEach((text: HTMLDivElement, index: Number) => {
-  //   // const split = new SplitText(textRef1.current, {
-  //   //   type: "words,lines",
-  //   //   linesClass: "line",
-  //   // });
-  //   // splits.push(split);
-
-  //   const split = SplitText.create(textRef1.current, {
-  //     type: "chars, words, lines",
-  //     wordsClass: "word",
-  //   });
-
-  //   // gsap.set(textRef1.current, {x:-100})
-
-  //   gsap.fromTo(
-  //     split.lines,
-  //     {
-  //       y: 10,
-  //       // opacity: 0,
-  //       // stagger: 0.05,
-  //     },
-  //     {
-  //       scrollTrigger: {
-  //         trigger: divRef1.current,
-  //         start: "top center",
-  //         end: "center center",
-  //         scrub: 1,
-  //         markers: true,
-  //       },
-  //       y: 0,
-  //       opacity: 1,
-  //       // autoAlpha: 0,
-  //       // stagger: 0.05,
-  //     }
-  //   );
-  //   // });
-  // }, []);
   return (
     <section className="FeatureSection relative z-10 bg-white">
       <Container>
@@ -193,7 +145,7 @@ function TextReveal({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 90%",
-          markers: true,
+          // markers: true,
         },
       });
     } else {
