@@ -15,8 +15,9 @@ interface CircularNavProps {
 
 export const NavbarMenu: React.FC<CircularNavProps> = ({
   items = [
-    { label: "Contact", href: "#" },
-    { label: "Socials", href: "#" },
+    { label: "Contact", href: "mailto:yushank.dev@gmail.com" },
+    { label: "Socials", href: "https://x.com/YushankKashyap" },
+    { label: "Github", href: "https://github.com/Yushank" },
   ],
 }) => {
   const [isOpen, setIsOpen] = useState(false);

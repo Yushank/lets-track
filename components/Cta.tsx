@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -80,7 +81,7 @@ export const Cta = () => {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden z-10">
       <div className="h-[85vh] flex items-center bg-primary overflow-hidden">
         <div className="w-full relative flex justify-center will-change-transform">
           <h1
@@ -117,12 +118,16 @@ export const Cta = () => {
           Ask AI and track what you ate today
         </h1>
         <div className="flex justify-center md:justify-start gap-4 pt-6">
-          <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
-            LET'S TRACK
-          </button>
-          <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
-            SIGN IN
-          </button>
+          <Link href="/signup">
+            <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
+              LET'S TRACK
+            </button>
+          </Link>
+          <Link href="/signin">
+            <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
+              SIGN IN
+            </button>
+          </Link>
         </div>
       </div>
     </section>

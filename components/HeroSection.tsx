@@ -5,6 +5,7 @@ import { Container } from "./Container";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RefObject, useEffect, useRef } from "react";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -19,12 +20,16 @@ export const HeroSection = () => {
               Track any meal with AI—no more scrolling through endless lists.
             </p>
             <div className="flex justify-center md:justify-start gap-4 pt-6">
-              <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
-                LET'S TRACK
-              </button>
-              <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
-                SIGN IN
-              </button>
+              <Link href="/signup">
+                <button className="px-2 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-gray-50 font-medium">
+                  LET'S TRACK
+                </button>
+              </Link>
+              <Link href="/signin">
+                <button className="px-2 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">
+                  SIGN IN
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex-1 flex justify-center lg:ml-4 lg:pl-20">

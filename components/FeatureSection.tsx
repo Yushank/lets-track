@@ -25,17 +25,19 @@ export const FeatureSection = () => {
             >
               <h1
                 // ref={textRef1}
-                className="text-xl font-medium text-gray-800"
+                className="text-xl font-medium text-gray-800 py-2"
               >
-                Feature heading
+                Smart Meal Logging
               </h1>
 
-              <h2 className="text-4xl font-semibold text-gray-800">Title</h2>
-              <p className="font-normal text-gray-700">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-                voluptate qui voluptatibus nemo, distinctio a error, nesciunt
-                at, magni quaerat animi aspernatur eligendi earum tenetur
-                expedita vel quos autem! Ut?
+              <h2 className="text-4xl font-semibold text-gray-800 py-2">
+                Track Your Meals in Seconds
+              </h2>
+              <p className="font-normal text-gray-700 py-2">
+                Just tell the app what you ate — in your own natural language —
+                and our AI instantly breaks it down into calories, macros, and
+                nutrition insights. No manual search, no barcode scanning, no
+                overwhelm. Accurate, fast, and unbelievably simple.
               </p>
             </TextReveal>
           </div>
@@ -71,16 +73,19 @@ export const FeatureSection = () => {
               stagger={0.1}
               duration={1}
             >
-              <h1 className="text-xl font-medium text-gray-800">
-                Feature heading
+              <h1 className="text-xl font-medium text-gray-800 py-2">
+                AI-Powered Macro Estimation
               </h1>
 
-              <h2 className="text-4xl font-semibold text-gray-800">Title</h2>
-              <p className="font-normal text-gray-700">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-                voluptate qui voluptatibus nemo, distinctio a error, nesciunt
-                at, magni quaerat animi aspernatur eligendi earum tenetur
-                expedita vel quos autem! Ut?
+              <h2 className="text-4xl font-semibold text-gray-800 py-2">
+                Precision Nutrition Without the Math
+              </h2>
+              <p className="font-normal text-gray-700 py-2">
+                Our nutrition model analyzes portion sizes, cooking methods, and
+                food combinations to give highly reliable macro estimates.
+                Whether your meal is homemade or from outside, you get protein,
+                carbs, fats, and calorie breakdowns tailored to real-world
+                eating.
               </p>
             </TextReveal>
           </div>
